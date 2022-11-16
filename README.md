@@ -1,6 +1,10 @@
 # Prison Database 
 
 ![My image](https://github.com/Kartik-Chaurasiya/ds_pro/blob/master/dspro.png)
+## ER Diagram of database
+![My image](https://github.com/Kartik-Chaurasiya/ds_pro/blob/master/ER-Diagram_final_project.png)
+
+[dataset link](https://www.kaggle.com/datasets/rajanand/prison-in-india?select=Jail+wise+population+of+prison+inmates.csv)
 
 ## To run it Follow these steps:
 
