@@ -26,7 +26,7 @@ def insert_date(table):
         education = pris.selectbox('Education', ["Middle School", "High School"])
         prison_id = pris.selectbox('prison', prison_idlst)
         convict_reason = pris.text_area('Convict Reason')
-        section_id = pris.selectbox('prison', section_idlst)
+        section_id = pris.selectbox('Section', section_idlst)
 
         submit = pris.form_submit_button("submit this form")
 
