@@ -18,7 +18,7 @@ cols = {
   'illness': ['prisoner_id', 'ill_type', 'treatment_cost', 'diagnosed_date'],
   'staff': ['staff_id', 'prison_id', 'staff_name', 'gender', 'age', 's_email', 'in_service'],
   'state_year': ['state_year_id', 'state_name', 'year'],
-  'year_wise_numbers': ['state_year_id', 'convicts_admitted', 'habitual_offenders', 'financial_assistance_received_num', 'rehabilitated', 'legal_aid_received_num', 'women_prisoners_with_children', 'children_of_women_prisoner_num']
+  'prisoner_statistics_year_wise': ['state_year_id', 'convicts_admitted', 'habitual_offenders', 'financial_assistance_received_num', 'rehabilitated', 'legal_aid_received_num', 'women_prisoners_with_children', 'children_of_women_prisoner_num']
 }
 
 

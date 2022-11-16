@@ -7,7 +7,7 @@ new_title = '<p style="font-family:sans-serif; color:Red; font-size: 42px;">Tabl
 st.header('Prisoner DataBase')
 st.sidebar.markdown(new_title, unsafe_allow_html=True)
 table =  st.sidebar.form("table")
-insert_into = table.selectbox(' ', ["prisoner_released", "prisoners", "prisons", "budget_flow", "crime_gender_numbers", "deaths_in_prison", "federal_sections", "illness", "staff", "state_year", "year_wise_numbers"]) 
+insert_into = table.selectbox(' ', ["prisoner_released", "prisoners", "prisons", "budget_flow", "crime_gender_numbers", "deaths_in_prison", "federal_sections", "illness", "staff", "state_year", "prisoner_statistics_year_wise"]) 
 submit = table.form_submit_button("Select Table")
 show_data.show_data(insert_into, submit)
 insert_data.insert_date(insert_into)

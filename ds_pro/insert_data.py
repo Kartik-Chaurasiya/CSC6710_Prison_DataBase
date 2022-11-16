@@ -298,7 +298,7 @@ def insert_date(table):
                     st.success("Success")
                 except (Exception, psycopg2.DatabaseError) as error:
                     st.error(error)
-    elif table == "year_wise_numbers":
+    elif table == "prisoner_statistics_year_wise":
         query = "SELECT state_year_id, state_name FROM state_year;"
         cursor.execute(query)
         state_year_idlst = cursor.fetchall()
@@ -317,7 +317,7 @@ def insert_date(table):
         if submit:
             try:
                 data = (state_year_id[0], convicts_admitted, habitual_offenders, financial_assistance_received_num, rehabilitated, legal_aid_received_num, women_prisoners_with_children, children_of_women_prisoner_num)
-                cursor.execute("INSERT into year_wise_numbers VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", data)
+                cursor.execute("INSERT into prisoner_statistics_year_wise VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", data)
                 conn.commit()
                 st.success("Success")
             except (Exception, psycopg2.DatabaseError) as error:
