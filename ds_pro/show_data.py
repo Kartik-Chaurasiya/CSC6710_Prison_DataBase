@@ -18,7 +18,9 @@ cols = {
   'illness': ['prisoner_id', 'ill_type', 'treatment_cost', 'diagnosed_date'],
   'staff': ['staff_id', 'prison_id', 'staff_name', 'gender', 'age', 's_email', 'in_service'],
   'state_year': ['state_year_id', 'state_name', 'year'],
-  'prisoner_statistics_year_wise': ['state_year_id', 'convicts_admitted', 'habitual_offenders', 'financial_assistance_received_num', 'rehabilitated', 'legal_aid_received_num', 'women_prisoners_with_children', 'children_of_women_prisoner_num']
+  'prisoner_statistics_year_wise': ['state_year_id', 'convicts_admitted', 'habitual_offenders', 'financial_assistance_received_num', 'rehabilitated', 'legal_aid_received_num', 'women_prisoners_with_children', 'children_of_women_prisoner_num'],
+  'Query 1': ['prison_name', 'total_treatment_cost', 'average_planned_budget'],
+  'Query 2': ['prison_name', 'death']
 }
 
 
@@ -40,10 +42,37 @@ def show_data(table, submit):
         st.session_state.order_by = cols[table][0]
     if 'order_d' not in st.session_state or submit:
         st.session_state.order_d = 'ASC'
-    query = "SELECT * FROM {} ORDER BY {} {};".format(table, st.session_state.order_by, st.session_state.order_d)
-    cursor.execute(query)
-    df = cursor.fetchall()
-    st.text(f"Data: {table}")
+    if table != 'Query 1' and table != 'Query 2':
+        st.text(f"Data: {table}")
+        query = "SELECT * FROM {} ORDER BY {} {};".format(table, st.session_state.order_by, st.session_state.order_d)
+        cursor.execute(query)
+        df = cursor.fetchall()
+    else:
+        if table == 'Query 1':
+            st.text("Display prison_name, total cost in prisoners treatment, average of their yearly ")
+            st.text("planned budget and sort them by thier total treatment cost in desc.")
+            query = """select pr.prison_name, sum(i.treatment_cost) as total_treatment_cost, avg(bf.planned_budget) as average_planned_budget
+                        from prisons pr, prisoners p, illness i, budget_flow bf
+                        where pr.prison_id = p.prison_id and
+                            p.prisoner_id = i.prisoner_id and
+                            pr.prison_id = bf.prison_id 
+                        group by pr.prison_id
+                        order by total_treatment_cost DESC;"""
+            cursor.execute(query)
+            df = cursor.fetchall()
+        elif table == 'Query 2':
+            st.text("display prison name for illtype Physical count number of death caused by it for ")
+            st.text("prisoners sort by death count desc.")
+            query = """select pr.prison_name, count(d.prisoner_or_staff_id) as death
+                        from prisoners p, prisons pr, deaths_in_prison d, illness l
+                        where pr.prison_id = p.prison_id and
+                            p.prisoner_id = d.prisoner_or_staff_id and
+                            l.prisoner_id = p.prisoner_id and
+                            l.ill_type = 'Physical'
+                        group by pr.prison_name
+                        order by death DESC;"""
+            cursor.execute(query)
+            df = cursor.fetchall()
     order_by = st.selectbox('Order By Column', cols[table]) 
     cola, colb, _ = st.columns([0.1, 0.17, 0.1])
     with cola:
